@@ -6,5 +6,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void Start()
     {
         Debug.Log("Hello");
+        Debug.Log("Hi");
     }
 }
