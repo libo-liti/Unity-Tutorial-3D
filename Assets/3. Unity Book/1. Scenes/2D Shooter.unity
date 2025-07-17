@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletFactory: {fileID: 4773079482565122839, guid: 477addb055b75b64f81a6974454bae97, type: 3}
   firePosition: {fileID: 1066293886}
+  poolSize: 10
 --- !u!65 &237597504
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -417,8 +418,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215d0a099d0834241ada384511d1c52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createTime: 1
+  poolSize: 10
+  spawnPoints:
+  - {fileID: 2081703371}
+  - {fileID: 2082951853}
+  - {fileID: 767698058}
+  - {fileID: 300912309}
   enemyFactory: {fileID: 6306408177059005313, guid: c3350a7aa7551d14ca7a9c4151e6276f, type: 3}
+  createTime: 1
 --- !u!4 &300144368
 Transform:
   m_ObjectHideFlags: 0
@@ -443,7 +450,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 300912309}
-  - component: {fileID: 300912308}
   m_Layer: 0
   m_Name: Enemy Manager (4)
   m_TagString: Untagged
@@ -451,20 +457,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &300912308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300912307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215d0a099d0834241ada384511d1c52a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createTime: 1
-  enemyFactory: {fileID: 6306408177059005313, guid: c3350a7aa7551d14ca7a9c4151e6276f, type: 3}
 --- !u!4 &300912309
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,8 +1090,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScoreUI: {fileID: 1793241172}
   bestScoreUI: {fileID: 581151166}
-  currentScore: 0
-  bestScore: 0
 --- !u!4 &752783476
 Transform:
   m_ObjectHideFlags: 0
@@ -1124,7 +1114,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 767698058}
-  - component: {fileID: 767698057}
   m_Layer: 0
   m_Name: Enemy Manager (3)
   m_TagString: Untagged
@@ -1132,20 +1121,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &767698057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767698056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215d0a099d0834241ada384511d1c52a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createTime: 1
-  enemyFactory: {fileID: 6306408177059005313, guid: c3350a7aa7551d14ca7a9c4151e6276f, type: 3}
 --- !u!4 &767698058
 Transform:
   m_ObjectHideFlags: 0
@@ -1747,7 +1722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -50.2}
+  m_AnchoredPosition: {x: 100, y: -50.19995}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793241172
@@ -2081,7 +2056,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2081703371}
-  - component: {fileID: 2081703370}
   m_Layer: 0
   m_Name: Enemy Manager (1)
   m_TagString: Untagged
@@ -2089,20 +2063,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2081703370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081703369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215d0a099d0834241ada384511d1c52a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createTime: 1
-  enemyFactory: {fileID: 6306408177059005313, guid: c3350a7aa7551d14ca7a9c4151e6276f, type: 3}
 --- !u!4 &2081703371
 Transform:
   m_ObjectHideFlags: 0
@@ -2127,7 +2087,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082951853}
-  - component: {fileID: 2082951852}
   m_Layer: 0
   m_Name: Enemy Manager (2)
   m_TagString: Untagged
@@ -2135,20 +2094,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2082951852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082951851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215d0a099d0834241ada384511d1c52a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createTime: 1
-  enemyFactory: {fileID: 6306408177059005313, guid: c3350a7aa7551d14ca7a9c4151e6276f, type: 3}
 --- !u!4 &2082951853
 Transform:
   m_ObjectHideFlags: 0

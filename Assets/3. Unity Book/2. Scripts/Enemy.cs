@@ -4,43 +4,52 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Vector3 dir;
-    public float speed = 5f;
+    public float speed = 5;
 
     public GameObject explosionFactory;
-    private void Start()
+    
+    void OnEnable()
     {
         int ranValue = UnityEngine.Random.Range(0, 10);
 
-        if (ranValue < 3)
+        if (ranValue < 7) // 70%
         {
             GameObject target = GameObject.Find("Player");
-            dir = target.transform.position - transform.position;
+            dir = target.transform.position - transform.position; // 플레이어를 바라보는 방향 값
             dir.Normalize();
         }
-        else
+        else // 70%
         {
             dir = Vector3.down;
         }
     }
 
-    private void Update()
+    void Update()
     {
-        transform.position += Time.deltaTime * speed * dir;
+        transform.position += speed * Time.deltaTime * dir;
     }
-
+    
     private void OnCollisionEnter(Collision other)
     {
-        GameObject smObject = GameObject.Find("ScoreManager");
-        ScoreManager sm = smObject.GetComponent<ScoreManager>();
-
-        var score = sm.GetScore() + 1;
-        sm.SetScore(score);
-        
+        ScoreManager.Instance.Score++;
         
         GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = transform.position;
+
+        if (other.gameObject.name.Contains("Bullet"))
+        {
+            // PlayerFire player = GameObject.Find("Player").GetComponent<PlayerFire>();
+            // PlayerFire.Instance.bulletObjectPool.Add(other.gameObject);
+            PlayerFire.Instance.bulletObjectPool.Enqueue(other.gameObject);
+            other.gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(other.gameObject); // 플레이어 오브젝트
+        }
         
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+        // EnemyManager.Instance.enemyObjectPool.Add(gameObject);
+        EnemyManager.Instance.enemyObjectPool.Enqueue(gameObject);
+        gameObject.SetActive(false);
     }
 }

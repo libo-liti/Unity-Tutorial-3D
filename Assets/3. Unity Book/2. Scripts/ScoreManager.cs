@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : Singleton<ScoreManager>
 {
     public TextMeshProUGUI currentScoreUI;
     public TextMeshProUGUI bestScoreUI;
@@ -10,27 +10,32 @@ public class ScoreManager : MonoBehaviour
     private int currentScore;
     private int bestScore;
 
-    private void Start()
+    public int Score
     {
-        bestScore = PlayerPrefs.GetInt("BestScore");
-        bestScoreUI.text = $"최고 점수 : {bestScore}";
-    }
-
-    public void SetScore(int value)
-    {
-        currentScore = value;
-        currentScoreUI.text = "현재 점수 : " + currentScore;
-        
-        if (currentScore > bestScore)
+        get
         {
-            bestScore = currentScore;
-            bestScoreUI.text = "최고 점수 : " + currentScore;
-            PlayerPrefs.SetInt("BestScore", bestScore);
+            return currentScore;
+        }
+        set
+        {
+            currentScore = value;
+
+            currentScoreUI.text = "현재 점수 : " + currentScore;
+
+            if (currentScore > bestScore)
+            {
+                bestScore = currentScore;
+                bestScoreUI.text = "최고 점수 : " + bestScore;
+
+                PlayerPrefs.SetInt("BestScore", bestScore);
+            }
         }
     }
-
-    public int GetScore()
+    
+    void Start()
     {
-        return currentScore;
+        bestScore = PlayerPrefs.GetInt("BestScore", 0);
+
+        bestScoreUI.text = "최고 점수 : " + bestScore;
     }
 }
