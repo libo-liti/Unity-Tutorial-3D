@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSPlayerMove : MonoBehaviour
 {
@@ -11,6 +13,13 @@ public class FPSPlayerMove : MonoBehaviour
     public float jumpPower = 10f;
 
     public bool isJumping = false;
+
+    public float hp = 20f;
+
+    private int maxHp = 20;
+    public Slider hpSlider;
+
+    public GameObject hitEffect;
     private void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -18,6 +27,9 @@ public class FPSPlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (FPSGameManager.Instance.gState != FPSGameManager.GameState.Run)
+            return;
+        
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -43,5 +55,24 @@ public class FPSPlayerMove : MonoBehaviour
             isJumping = true;
             yVelocity = jumpPower;
         }
+
+    }
+
+    public void DamageAction(int damage)
+    {
+        hp -= damage;
+        hpSlider.value = (float)hp / (float)maxHp;
+
+        if (hp > 0)
+            StartCoroutine(PlayHitEffect());
+    }
+
+    IEnumerator PlayHitEffect()
+    {
+        hitEffect.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+        
+        hitEffect.SetActive(false);
     }
 }
