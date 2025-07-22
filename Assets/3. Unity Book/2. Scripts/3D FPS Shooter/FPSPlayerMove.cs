@@ -20,9 +20,11 @@ public class FPSPlayerMove : MonoBehaviour
     public Slider hpSlider;
 
     public GameObject hitEffect;
+    private Animator anim;
     private void Start()
     {
         cc = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -34,7 +36,11 @@ public class FPSPlayerMove : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         Vector3 dir = new Vector3(h, 0, v);
+        anim.SetFloat("MoveMotion", dir.magnitude);
         dir = dir.normalized;
+       
+        
+
         dir = Camera.main.transform.TransformDirection(dir);
         
         yVelocity += gravity * Time.deltaTime;
