@@ -1,4 +1,4 @@
-using System;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -6,29 +6,35 @@ using Random = UnityEngine.Random;
 
 public class AgentController : MonoBehaviour
 {
-    public Transform player;
     private NavMeshAgent agent;
-
-    public Transform[] points;
-    public int index;
-
+    public Camera camera;
+    public NavMeshSurface surface;
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player").transform;
-
+        surface.transform.position = agent.transform.position;
+        surface.BuildNavMesh();
     }
 
     private void Update()
     {
-        agent.SetDestination(points[index].position);
-        if (agent.remainingDistance <= 1.5f)
+        if (Input.GetMouseButtonDown(0))
         {
-            int temp = index;
-            index = Random.Range(0, points.Length);
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (temp == index)
-                index = Random.Range(0, points.Length);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                agent.SetDestination(hit.point);
+                transform.SetParent(hit.transform);
+            }
+        }
+
+        if (Vector3.Distance(transform.position, surface.transform.position) > 20f)
+        {
+            surface.transform.position = agent.transform.position;
+            surface.BuildNavMesh();
         }
     }
 }
