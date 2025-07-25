@@ -35,14 +35,10 @@ public class EnemyFSM : MonoBehaviour
         player = GameObject.Find("Player").transform;
         cc = GetComponent<CharacterController>();
         anim = transform.GetComponentInChildren<Animator>();
+        smith = GetComponent<NavMeshAgent>();
 
         originPos = transform.position;
         originRot = transform.rotation;
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        smith = GetComponent<NavMeshAgent>();
     }
 
     private void Update()

@@ -16,10 +16,10 @@ TagManager:
   - Enemy
   - Player
   - DestroyZone
-  - Bullet
+  - 
   - Bomb
   - 
-  - 
+  - Bullet
   - 
   - Obstacle
   - 
