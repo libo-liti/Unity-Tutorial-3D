@@ -20,6 +20,7 @@ public class FPSPlayerFire : MonoBehaviour
 
     public GameObject crosshair01;
     public GameObject crosshair02;
+    public GameObject crosshair02_zoom;
     
     public GameObject weapon01_R;
     public GameObject weapon02_R;
@@ -47,6 +48,8 @@ public class FPSPlayerFire : MonoBehaviour
     {
         if (FPSGameManager.Instance.gState != FPSGameManager.GameState.Run)
             return;
+        
+        #region 마우스 왼쪽 클릭 -> 총 발사
         if (Input.GetMouseButtonDown(0))
         {
             if (anim.GetFloat("MoveMotion") == 0)
@@ -72,6 +75,9 @@ public class FPSPlayerFire : MonoBehaviour
                 }
             }
         }
+        #endregion
+
+        #region 마우스 오른쪽 클릭 -> 일반모드 -수류탄 / 저격모드 - 조준경
         if (Input.GetMouseButtonDown(1))
         {
             switch (wMode)
@@ -84,25 +90,18 @@ public class FPSPlayerFire : MonoBehaviour
                     rb.AddForce((Camera.main.transform.forward + Camera.main.transform.up * 0.5f) * throwPower, ForceMode.Impulse);
                     break;
                 case WeaponMode.Sniper:
-                    // if (!zoomMode)
-                    // {
-                    //     Camera.main.fieldOfView = 15f;
-                    //     zoomMode = true;
-                    // }
-                    // else
-                    // {
-                    //     Camera.main.fieldOfView = 60f;
-                    //     zoomMode = false;
-                    // }
-
-                    var fov = zoomMode ? 60f : 15f;
-                    Camera.main.fieldOfView = fov;
                     zoomMode = !zoomMode;
+                    var fov = zoomMode ? 15f : 60f;
+                    Camera.main.fieldOfView = fov;
                     
+                    crosshair02_zoom.SetActive(zoomMode);
+                    crosshair02.SetActive(!zoomMode);
                     break;
             }
         }
+        #endregion
 
+        #region 무기 변경
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             wMode = WeaponMode.Normal;
@@ -116,6 +115,7 @@ public class FPSPlayerFire : MonoBehaviour
             weapon02_R.SetActive(false);
             crosshair01.SetActive(true);
             crosshair02.SetActive(false);
+            crosshair02_zoom.SetActive(false);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -129,6 +129,8 @@ public class FPSPlayerFire : MonoBehaviour
             crosshair01.SetActive(false);
             crosshair02.SetActive(true);
         }
+        #endregion
+        
     }
     IEnumerator ShootEffectOn(float duration)
     {
