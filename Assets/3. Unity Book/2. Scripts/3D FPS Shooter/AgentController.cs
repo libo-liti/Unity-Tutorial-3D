@@ -1,13 +1,14 @@
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
 public class AgentController : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public Camera camera;
+    public Camera _camera;
     public NavMeshSurface surface;
     
     private void Start()
@@ -21,7 +22,7 @@ public class AgentController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
